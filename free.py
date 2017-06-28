@@ -24,7 +24,6 @@ def parsing_data(data):
 def send_message(payload):
     req = get.build_opener()
     url = 'https://smsapi.free-mobile.fr/sendmsg?user=123456789&pass=p7YMLcLxxxxxx&msg='
-    payload = url + payload
-    req.open(payload)
+    req.open(url+payload)
 
 send_message(parsing_data(get_data()));
