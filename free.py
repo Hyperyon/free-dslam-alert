@@ -13,17 +13,21 @@ def get_data():
 def parsing_data(data):
     data = data.split(start)[1].split(end)[0]
     dslam = data.split("'>")[1:]
+    nra = []
+    nb_dslam = str(len(dslam))+'%20DSLAMs%20HS%0A'
 
     for i, element in enumerate(dslam):
-        dslam[i] = element.split('</a>')[0]
+        element = element.split('</a>')[0].split('-')[0]
+        dslam[i] = element
+        if element != dslam[i-1]: #remove double
+            nra.append(element)
 
-    nb_dslam = str(len(dslam))+'%20DSLAMs%20HS%0A%0'
-    dslam = '%0A'.join(dslam)
-    return nb_dslam+dslam
+    nra = '%0A'.join(nra)
+    return nb_dslam+nra
 
 def send_message(payload):
     req = get.build_opener()
-    url = 'https://smsapi.free-mobile.fr/sendmsg?user=123456789&pass=p7YMLcLxxxxxx&msg='
+    url = 'https://smsapi.free-mobile.fr/sendmsg?user=1023xxxx&pass=p7YMLcLxxxxxxx&msg='
     req.open(url+payload)
 
 send_message(parsing_data(get_data()));
